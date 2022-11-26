@@ -127,7 +127,32 @@ def updatepassword(db=models.session()):
 
 
 
-        
+@app.route("/user/forgetpassword/", methods=["PUT"])
+def forget_password(db=models.session()):
+    try:
+        user_data= request.args
+        db_email=  db.query(models.User).filter(models.User.email==user_data["email"]).all()
+        if db_email == []:
+            db.close()
+            return {"details":"please signup "}
+        new_password=uttils.get_random_string(12)
+        unhashed_pass = new_password + salt
+        password = sha256_crypt.encrypt(unhashed_pass)
+        db_email[0].password=password
+        db.commit()
+        db.close()
+
+        uttils.mail_password(user_data["email"],new_password)
+        return {"details":"password has been reset"}
+
+    except Exception as e:
+        traceback.print_exc()
+        err = str(e)
+        return {"detail":err}, 404         
+
+
+
+
 
 
 

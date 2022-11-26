@@ -32,7 +32,7 @@ def get_random_string(length):
 
 
 
-def mail_password(rescivermail,password):
+def mail_password(receiveremail,password):
     
     SUBJECT="Automated password mail"
     TEXT=f"this is an automated mail\n Your new password {password}"
@@ -45,7 +45,7 @@ def mail_password(rescivermail,password):
 
     message = f'Subject: {SUBJECT}\n\n{TEXT}'
 
-    s.sendmail("csashutoshdixit17@gmailcom", rescivermail, message)
+    s.sendmail("csashutoshdixit17@gmailcom", receiveremail, message)
     print("mail send")
 
 mail_password("ecetushar22@gmail.com","jgjhhggkjhjhgjgvkjh")
